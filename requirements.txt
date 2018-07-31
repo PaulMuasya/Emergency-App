@@ -20,5 +20,6 @@ static3==0.7.0
 sympy==0.7.6
 virtualenv==16.0.0
 virtualenv-clone==0.3.0
+whitenoise==3.3.1
 xlrd==0.9.3
 xlwt==1.0.0
