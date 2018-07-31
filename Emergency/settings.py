@@ -158,6 +158,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 LEAFLET_CONFIG = {
   'DEFAULT_CENTER': (-1.2833 , 36.8167),
