@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+{% load leaflet_tags %}
+<head>
+    {% leaflet_js %}
+    {% leaflet_css %}
+
+	<title>Emergency Response System </title>
+	<meta charset="utf-8"/>
+</head>
+
+<body>
+    <style type="text/css">  {background-color: #34ff11;} #Emergency { width: 1200px;height: 620px;} </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'osmgeocoder/Control.OSMGeocoder.css' %}">
+    <script type="text/javascript" src="{% static 'osmgeocoder/Control.OSMGeocoder.js' %}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'Leafletsearch/leaflet-search.css' %}">
+	<script  type="text/javascript" src="{% static 'Leafletsearch/leaflet-search.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'Leafletgroupedlayercontrol/leaflet.groupedlayercontrol.css' %}">
+	<script type="text/javascript" src="{% static 'Leafletgroupedlayercontrol/leaflet.groupedlayercontrol.js' %}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'Leafletfilelayer/style.css' %}">
+	<script type="text/javascript" src="{% static 'Leafletfilelayer/leaflet.filelayer.js' %}"></script>
+
+    <a href="https://twitter.com/intent/tweet?button_hashtag=LoveTwitter&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #LoveTwitter</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+<style type="text/css">
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #34ff11;
+}
+</style>
+
+<h1> Emergency Response App </h1>
+<ul>
+  <li><a href="#Home">Home</a></li>
+  <li><a href="#emergency">Emergency</a></li>
+  <li><a href="#response">Response</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li style="float:right"><a class="active" href="#about">About</a></li>
+</ul>
+<br>
+
+
+<script type="text/javascript"> 
+    function emergency_layers (map,options){
+    	var osm = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var baseLayers ={
+			"OSM" : osm
+	    };
+
+	    var groupedOverlays = { 
+
+        };
+
+        L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
+        
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            collapsed: false,
+            position: 'bottomright',
+            text: 'Find!',
+            });
+        map.addControl(osmGeocoder);
+
+        var searchControl = new L.Control.Search({
+            //layer: [Existing_Billboards_datasets],
+            zoom: 7.5,
+            //propertyName: 'existing_billboards',
+            circleLocation: false
+  });
+
+        var searchLayer = L.layerGroup().addTo(map);
+//... adding data in searchLayer ...
+map.addControl( new L.Control.Search({layer: searchLayer}) );
+//searchLayer is a L.LayerGroup contains searched markers
+};
+</script>
+
+
+{% leaflet_map "Emergency" callback="window.emergency_layers" %}
+</body>
+</html>
