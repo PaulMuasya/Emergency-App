@@ -18,15 +18,12 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '9090',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
 ...
@@ -45,7 +42,7 @@ DATABASES['default'].update(db_from_env)
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9_dcale=3473*ttw35^hfok$fmv!c=a$y88^z=*3p-8&96xpgg'
+#SECRET_KEY = '9_dcale=3473*ttw35^hfok$fmv!c=a$y88^z=*3p-8&96xpgg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
